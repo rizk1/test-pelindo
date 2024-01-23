@@ -1,8 +1,19 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+const corsOptions = {
+	origin: '*',
+	allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+	credentials: true,
+	enablePreflight: true
+}
+app.use(
+	cors(corsOptions)
+);
+app.options('*', cors(corsOptions))
 app.get('/', (req, res, next) => {
 	try {
 		res.json({

@@ -3,7 +3,7 @@ require('dotenv').config();
 const { User } = require('../models/BaseModel');
 const bcrypt = require('bcryptjs')
 
-module.exports.getDataUser = async (req, res, next) => {
+module.exports.getDetailUser = async (req, res, next) => {
     try {
         const { userid } = req.params
         const user = await User.findOne({
@@ -11,6 +11,19 @@ module.exports.getDataUser = async (req, res, next) => {
                 userid: userid
             }
         })
+        return res.status(200).json({
+            status: 'success',
+            data: user,
+            message: "List Of User"
+        })
+    } catch (error) {
+        return next(error);
+    }
+}
+
+module.exports.getDataUser = async (req, res, next) => {
+    try {
+        const user = await User.findAll()
         return res.status(200).json({
             status: 'success',
             data: user,
